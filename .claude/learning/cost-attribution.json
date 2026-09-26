@@ -1,0 +1,50 @@
+{
+  "updatedAt": "2026-09-26T09:46:28.122Z",
+  "workspacePath": "/Users/mac/Desktop/yalcin-isi",
+  "transcriptSkills": {
+    "skill-feedback-adaptation": {
+      "cursor": {
+        "tokens": 615679.4166666667,
+        "cost": 5.541114749999998,
+        "sessions": 25
+      }
+    },
+    "file-style-conventions": {
+      "cursor": {
+        "tokens": 615337.4166666667,
+        "cost": 5.53803675,
+        "sessions": 24
+      }
+    },
+    "web-ui-pass": {
+      "cursor": {
+        "tokens": 629414.0833333333,
+        "cost": 5.66472675,
+        "sessions": 25
+      }
+    },
+    "apply-project-starter": {
+      "cursor": {
+        "tokens": 14076.666666666666,
+        "cost": 0.12669,
+        "sessions": 1
+      }
+    },
+    "ship-web": {
+      "cursor": {
+        "tokens": 14076.666666666666,
+        "cost": 0.12669,
+        "sessions": 1
+      }
+    },
+    "self-learning": {
+      "cursor": {
+        "tokens": 314551.75,
+        "cost": 2.8309657500000003,
+        "sessions": 9
+      }
+    }
+  },
+  "base_context": {},
+  "unattributed": {}
+}

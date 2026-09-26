@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Manrope", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --brand-navy: #14275e;
+  --brand-navy-mid: #1d3475;
+  --brand-orange: #f28c00;
+  --brand-white: #ffffff;
+  --brand-nav: #e8eaed;
+  --brand-mist: #f7f8fa;
+  --brand-ink: #172033;
+  --section-y: clamp(4.5rem, 8vw, 7.5rem);
+  --radius-card: 1rem;
+  --radius-panel: 1.5rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--brand-mist);
+  color: var(--brand-ink);
+  @apply antialiased font-body;
+}
+
+::selection {
+  background-color: rgb(242 140 0 / 0.28);
+  color: var(--brand-ink);
+}
+
+.container-page {
+  @apply mx-auto w-full max-w-content px-5 sm:px-6 md:px-10;
+}
+
+.section-pad {
+  padding-block: var(--section-y);
+}
+
+.eyebrow {
+  @apply text-xs font-semibold uppercase tracking-[0.14em] text-ember-600;
+}
+
+.btn-primary {
+  @apply focus-ring inline-flex items-center justify-center rounded-xl bg-ember-500 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition hover:bg-ember-600;
+  transition-property: transform, background-color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: var(--ease-out);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px -8px rgb(242 140 0 / 0.45);
+}
+
+.btn-secondary {
+  @apply focus-ring inline-flex items-center justify-center rounded-xl border border-navy-900/15 bg-paper px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-ember-500 hover:text-ember-600;
+  transition-property: transform, border-color, color, background-color;
+  transition-duration: 0.25s;
+  transition-timing-function: var(--ease-out);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-ghost-light {
+  @apply focus-ring inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20;
+  transition-property: transform, background-color, border-color;
+  transition-duration: 0.25s;
+  transition-timing-function: var(--ease-out);
+}
+
+.btn-ghost-light:hover {
+  transform: translateY(-1px);
+}
+
+.focus-ring {
+  @apply outline-none focus-visible:ring-2 focus-visible:ring-ember-500 focus-visible:ring-offset-2;
+}
+
+.focus-ring:focus-visible {
+  --tw-ring-offset-color: var(--brand-mist);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html.motion-ready .page-enter {
+  animation: page-enter 0.4s var(--ease-out) both;
+}
+
+@keyframes wa-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 10px 28px -6px rgb(0 0 0 / 0.35);
+  }
+  50% {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -8px rgb(37 211 102 / 0.45);
+  }
+}
+
+/* JS yüklendikten sonra hero giriş animasyonu — yoksa içerik görünür kalır */
+html.motion-ready .hero-rise {
+  animation: hero-rise 0.65s var(--ease-out) both;
+}
+
+html.motion-ready .hero-rise-d0 {
+  animation-delay: 0.05s;
+}
+html.motion-ready .hero-rise-d1 {
+  animation-delay: 0.12s;
+}
+html.motion-ready .hero-rise-d2 {
+  animation-delay: 0.2s;
+}
+html.motion-ready .hero-rise-d3 {
+  animation-delay: 0.28s;
+}
+html.motion-ready .hero-rise-d4 {
+  animation-delay: 0.36s;
+}
+html.motion-ready .hero-rise-d5 {
+  animation-delay: 0.42s;
+}
+html.motion-ready .hero-rise-d6 {
+  animation-delay: 0.5s;
+}
+html.motion-ready .hero-rise-d7 {
+  animation-delay: 0.58s;
+}
+html.motion-ready .hero-rise-d8 {
+  animation-delay: 0.66s;
+}
+
+.wa-float {
+  animation: wa-pulse 2.8s var(--ease-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.motion-ready .hero-rise,
+  html.motion-ready .page-enter {
+    animation: none;
+  }
+  .wa-float {
+    animation: none;
+  }
+}

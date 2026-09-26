@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-26T07:36:29.437Z",
+  "proposalsGeneratedAt": "2026-09-26T07:36:29.435Z",
+  "source": "task-skill-proposals",
+  "activeSkills": [
+    "self-learning",
+    "file-style-conventions",
+    "skill-creator",
+    "skill-usage-insights",
+    "skill-feedback-adaptation",
+    "skill-official-updater",
+    "extension-value-audit",
+    "github-actions-ci"
+  ],
+  "ignoredSkills": []
+}

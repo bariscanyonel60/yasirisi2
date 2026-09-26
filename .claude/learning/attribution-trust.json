@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-26T07:36:29.103Z",
+  "enabled": true,
+  "thresholdPct": 50,
+  "scorePct": 82,
+  "level": "high",
+  "tier": "estimated",
+  "summary": "High confidence — v2 hooks logged 0 invoke(s); per-skill costs are measured where hooks fired. Per-skill costs are probabilistic when hooks did not fire — not an API invoice.",
+  "shouldInject": false
+}

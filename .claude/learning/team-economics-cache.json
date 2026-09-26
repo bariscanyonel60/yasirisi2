@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "computedAt": "2026-09-26T07:36:32.818Z",
+  "fingerprint": {
+    "gitHead": "",
+    "skillsHash": "1c2b0422dee84e5c30f8dca7ef88eee4c85f72dc1d7ea3e9f44d680394e25010",
+    "attributionHash": "1790408187718.086:879|missing"
+  },
+  "skillAuthors": [
+    {
+      "skill": "skill-feedback-adaptation",
+      "author": "unknown",
+      "monthlyCost": 3.321522,
+      "line": "$3.32/mo | added by unknown (unknown date)"
+    },
+    {
+      "skill": "file-style-conventions",
+      "author": "unknown",
+      "monthlyCost": 3.315366,
+      "line": "$3.32/mo | added by unknown (unknown date)"
+    }
+  ],
+  "teamEconomics": {
+    "workspaceCostUsd": 5.356197,
+    "estimatedMinutesSaved": 24,
+    "estimatedValueUsd": 30,
+    "netRoi": 6,
+    "netRoiBand": "LOW",
+    "skillCount": 5,
+    "byRepo": [],
+    "bySkillOwner": [
+      {
+        "author": "unknown",
+        "costUsd": 3.318444,
+        "skills": [
+          "file-style-conventions",
+          "skill-feedback-adaptation"
+        ]
+      }
+    ]
+  }
+}
