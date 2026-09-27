@@ -22,10 +22,14 @@ npm run lint
 | Logo | `public/images/logo.png` (renkli), `logo-white.png` (koyu zemin) |
 | Ürün ekle / düzenle | `data/products.ts` |
 | Kategori | `data/categories.ts`, `types/product.ts` |
+| 4 ana ürün grubu (Pelet / Enerji / Kangal / Pano) | `productGroups` (`data/categories.ts`) + navbar `navItems` (`data/site.ts`) |
+| JSON-LD script | `components/seo/JsonLd.tsx` (doğrudan `dangerouslySetInnerHTML` yazma) |
 | İletişim / nav | `data/site.ts` |
 | Ürün görselleri | `public/images/products/<slug>/01.jpg` |
 | Kategori görselleri | `public/images/categories/*.jpg` |
 | Ana sayfa bölümleri | `components/home/*`, `app/page.tsx` |
+| PDF katalog (web, sıkıştırılmış) | `public/katalog/yalcin-isi-2026-urun-katalogu.pdf` (`site.catalogPdf`) |
+| Katalog orijinali (gitignore, deploy edilmez) | `katalog-kaynak/` |
 
 Yeni ürün: ilgili diziye `Product` ekle; `images` path'ini dosyayla eşleştir.
 `ProductImage` bilinen dosyaları gösterir — yeni görsel ekledikten sonra

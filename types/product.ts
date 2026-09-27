@@ -4,7 +4,9 @@ export type ProductCategorySlug =
   | "gunes-enerji-sistemleri"
   | "ruzgar-enerjisi"
   | "kangal-borular"
-  | "damlama-sulama-borulari";
+  | "damlama-sulama-borulari"
+  | "sulama-baglanti-parcalari"
+  | "elektrik-panolari";
 
 export interface TechnicalSpec {
   label: string;
@@ -24,6 +26,8 @@ export interface Product {
   shortDescription: string;
   description: string;
   images: string[]; // TODO: replace placeholders with real product photography
+  /** Dikey katalog sayfası görsellerinde kırpmayı önler */
+  imageFit?: "cover" | "contain";
   technicalSpecs: TechnicalSpec[];
   documents?: ProductDocument[];
   usageAreas?: string[];

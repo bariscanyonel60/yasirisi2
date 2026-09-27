@@ -116,9 +116,9 @@ export const localServices: LocalService[] = [
       "\"Tokat güneş enerjisi\" ve \"tokat güneş paneli\" aramalarında güvenilir bir yerel üretici ve çözüm ortağı olarak ürün gamımızı ve uygulama yaklaşımımızı şeffaf biçimde paylaşıyoruz.",
     ],
     bullets: [
-      "Güneş paneli elektrik üretimi (PV)",
-      "Güneş kolektör ve sıcak su sistemleri",
-      "Depo ve sistem bileşenleri",
+      "3 / 6,2 / 11 kW hazır güneş enerji paketleri",
+      "Lityum batarya ve MPPT inverterli sistemler",
+      "2 kolektörlü ve 18–36 vakum tüplü sıcak su sistemleri",
       "Tokat ve çevresinde keşif / teklif",
     ],
     ctaLabel: "Güneş enerjisi teklifi al",
@@ -148,9 +148,10 @@ export const localServices: LocalService[] = [
       "\"Tokat kangal boru\" aramalarında yerli üretici olarak stok, çap seçenekleri ve teklif süreçlerini şeffaf yürütüyoruz.",
     ],
     bullets: [
-      "PE kangal boru (farklı çaplar)",
-      "Damlama sulama boruları",
-      "Tokat OSB üretim kapasitesi",
+      "Ø16–110 mm, 6 ve 10 ATÜ PE kangal boru",
+      "Damlama sulama boruları (16 / 20 mm)",
+      "Kaplin, mandallı boru ve sulama ekipmanları",
+      "Günlük 2.000 kg üretim kapasitesi — Tokat OSB",
       "Tarımsal ve endüstriyel kullanım",
     ],
     ctaLabel: "Kangal boru teklifi al",
@@ -186,6 +187,16 @@ export const homeFaqs = [
     question: "Pelet sobası ile pelet yakıt birlikte mi sunuluyor?",
     answer:
       "Evet. Pelet sobası seçimine ek olarak pelet yakıt üretimi ve tedarik desteği sunuyoruz; ısıtma çözümünü bütünleşik planlıyoruz.",
+  },
+  {
+    question: "Tokat damlama sulama borusu üretiyor musunuz?",
+    answer:
+      "Evet. PE kangal boru ile birlikte damlama sulama boruları üretiyoruz. Damlatıcı aralığı ve çap seçimi için teklif formundan talep oluşturabilirsiniz.",
+  },
+  {
+    question: "Teklif ve keşif nasıl alınır?",
+    answer:
+      "İletişim sayfasındaki teklif formunu doldurabilir veya WhatsApp / telefon ile ulaşabilirsiniz. Ürün grubunu ve kullanım alanını kısaca yazmanız yeterlidir.",
   },
 ];
 

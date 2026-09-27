@@ -5,6 +5,9 @@ import { Product } from "@/types/product";
 
 const TODO = "TODO";
 
+const CATALOG_PDF = "/katalog/yalcin-isi-2026-urun-katalogu.pdf";
+const catalogDoc = [{ label: "2026 Ürün Kataloğu (PDF)", href: CATALOG_PDF }];
+
 export const pelletFeatures = [
   "Yüksek ısıtma gücü",
   "Doğal pelet yakıt",
@@ -153,7 +156,7 @@ export const pelletStoves: Product[] = Array.from({ length: 10 }, (_, i) => {
       { label: "Ölçüler (G x D x Y)", value: TODO },
     ],
     usageAreas: meta.usageAreas,
-    documents: [{ label: "Ürün Kataloğu (PDF)", href: "#" }],
+    documents: catalogDoc,
     featured: true,
     seoTitle: `${name} Pelet Sobası | Yalçın Isı`,
     seoDescription: `Yalçın Isı ${name} pelet sobası — ${meta.shortDescription} Görseller, özellikler ve teklif.`,
@@ -167,25 +170,108 @@ export const pelletFuel: Product[] = [
     slug: "pelet-yakit",
     name: "Pelet Yakıt",
     category: "pelet-yakit",
-    shortDescription: "Pelet sobaları için yüksek kalorili pelet yakıt.",
+    shortDescription:
+      "Doğal çam talaşından üretilen çam pelet — Tokat OSB'deki kendi tesisimizde.",
     description:
-      "Yalçın Isı pelet yakıtı, pelet sobalarında temiz ve verimli yanma için sunulur. Torba ve palet bazlı tedarik seçenekleri için iletişime geçin.",
-    images: ["/images/products/pelet-yakit/01.jpg"],
+      "Doğanın enerjisi: Yalçın Isı çam pelet, doğal çam talaşından kendi pelet üretim tesisimizde üretilir. %100 doğal, yüksek yanma verimi, çevre dostu ve uzun süreli ısı sunar; YPS pelet sobalarıyla birlikte bütünleşik ısıtma sağlar. Torba ve palet bazlı tedarik için iletişime geçin.",
+    images: [
+      "/images/products/pelet-yakit/01.jpg",
+      "/images/products/pelet-yakit/02.jpg",
+    ],
     technicalSpecs: [
+      { label: "Hammadde", value: "Doğal çam talaşı" },
+      { label: "Üretim", value: "Kendi tesisimiz — Tokat OSB" },
       { label: "Kalori Değeri", value: TODO },
       { label: "Nem Oranı", value: TODO },
       { label: "Kül Oranı", value: TODO },
       { label: "Ambalaj", value: TODO },
     ],
     usageAreas: ["Pelet sobası yakıtı", "Konut ısıtma", "İşyeri ısıtma"],
+    documents: catalogDoc,
     featured: true,
-    seoTitle: "Pelet Yakıt | Yalçın Isı",
+    seoTitle: "Tokat Çam Pelet Yakıt | Yalçın Isı",
     seoDescription:
-      "Yalçın Isı pelet yakıtı — pelet sobası için yüksek kalorili yakıt çözümleri.",
+      "Tokat çam pelet yakıt: doğal çam talaşından, %100 doğal, yüksek yanma verimli pelet. Yalçın Isı yerli üretim.",
   },
 ];
 
+type SolarKit = {
+  slug: string;
+  name: string;
+  power: string;
+  panels: string;
+  storage: string;
+  inverter: string;
+  image: string;
+  summary: string;
+};
+
+const solarKits: SolarKit[] = [
+  {
+    slug: "3-kw-gunes-enerji-sistemi-2-panel",
+    name: "3 kW Güneş Enerji Sistemi (2 Panel)",
+    power: "3 kW inverter",
+    panels: "2 adet güneş paneli (toplam 1 kW)",
+    storage: "2 adet 12V 200Ah deep cycle akü",
+    inverter: "1 adet 3 kW solar inverter",
+    image: "/images/products/gunes-kit-3kw-2panel/01.jpg",
+    summary: "Bağ evi ve küçük konutlar için giriş seviyesi off-grid set.",
+  },
+  {
+    slug: "3-kw-gunes-enerji-sistemi-4-panel",
+    name: "3 kW Güneş Enerji Sistemi (4 Panel)",
+    power: "3 kW inverter",
+    panels: "4 adet güneş paneli",
+    storage: "4 adet akü",
+    inverter: "1 adet 3 kW solar inverter",
+    image: "/images/products/gunes-kit-3kw-4panel/01.jpg",
+    summary: "Daha yüksek üretim ve depolama isteyen evler için 3 kW set.",
+  },
+  {
+    slug: "6-2-kw-gunes-enerji-sistemi",
+    name: "6,2 kW Güneş Enerji Sistemi",
+    power: "6,2 kW MPPT inverter",
+    panels: "5 adet güneş paneli",
+    storage: "51,2V 100Ah lityum batarya (5,12 kWh)",
+    inverter: "1 adet 6,2 kW MPPT inverter",
+    image: "/images/products/gunes-kit-6-2kw/01.jpg",
+    summary: "Lityum bataryalı, uzun ömürlü konut ve iş yeri sistemi.",
+  },
+  {
+    slug: "11-kw-gunes-enerji-sistemi",
+    name: "11 kW Güneş Enerji Sistemi",
+    power: "11 kW inverter",
+    panels: "16 adet güneş paneli",
+    storage: "2 adet 51,2V 100Ah lityum batarya",
+    inverter: "1 adet 11 kW inverter",
+    image: "/images/products/gunes-kit-11kw/01.jpg",
+    summary: "Yüksek tüketimli ev, çiftlik ve iş yerleri için güçlü sistem.",
+  },
+];
+
+const solarKitProducts: Product[] = solarKits.map((kit) => ({
+  id: kit.slug,
+  slug: kit.slug,
+  name: kit.name,
+  category: "gunes-enerji-sistemleri" as const,
+  shortDescription: kit.summary,
+  description: `${kit.name}: ${kit.panels}, ${kit.storage} ve ${kit.inverter}. Temiz enerji, kesintisiz güç — kendi enerjinizi üretin. Tokat ve çevresinde keşif, kurulum ve teklif için Yalçın Isı ile iletişime geçin.`,
+  images: [kit.image],
+  technicalSpecs: [
+    { label: "İnverter Gücü", value: kit.power },
+    { label: "Güneş Paneli", value: kit.panels },
+    { label: "Depolama", value: kit.storage },
+    { label: "İnverter", value: kit.inverter },
+  ],
+  usageAreas: ["Konut", "Bağ evi", "İş yeri", "Kesintisiz güç"],
+  documents: catalogDoc,
+  featured: true,
+  seoTitle: `${kit.name} | Tokat Güneş Enerjisi | Yalçın Isı`,
+  seoDescription: `Tokat güneş enerjisi: ${kit.name} — ${kit.panels}, ${kit.storage}. Yalçın Isı keşif ve teklif.`,
+}));
+
 export const solarProducts: Product[] = [
+  ...solarKitProducts,
   {
     id: "gunes-paneli-elektrik-uretimi",
     slug: "gunes-paneli-elektrik-uretimi",
@@ -217,18 +303,24 @@ export const solarProducts: Product[] = [
     slug: "gunes-enerjisi-kolektor-sistemleri",
     name: "Kolektör Sistemleri",
     category: "gunes-enerji-sistemleri",
-    shortDescription: "Güneş enerjisi kolektör sistemleri.",
+    shortDescription:
+      "2 kolektörlü ve 18 / 24 / 30 / 36 vakum tüplü güneş enerji sistemleri.",
     description:
-      "Yalçın Isı güneş enerjisi kolektör sistemleri, konut ve tesis tipi kurulumlar için farklı kapasitelerde üretilmektedir. Teknik detaylar için lütfen iletişime geçin.",
-    images: ["/images/products/gunes-kolektor/01.jpg"],
-    technicalSpecs: [
-      { label: "Kolektör Tipi", value: TODO },
-      { label: "Panel Ölçüleri", value: TODO },
-      { label: "Verimlilik", value: TODO },
+      "Güneşin enerjisi daima sizinle: Yalçın Isı sıcak su güneş enerji sistemleri; 2 kolektörlü (düz kolektör) ve 18, 24, 30, 36 vakum tüplü modellerle konut ve tesis ihtiyacına göre seçilir. Yüksek verim, doğa dostu, uzun ömürlü ve ekonomik çözüm.",
+    images: [
+      "/images/products/gunes-kolektor/02.jpg",
+      "/images/products/gunes-kolektor/01.jpg",
     ],
-    seoTitle: "Güneş Enerjisi Kolektör Sistemleri | Yalçın Isı",
+    technicalSpecs: [
+      { label: "Düz Kolektörlü", value: "2 kolektörlü sistem" },
+      { label: "Vakum Tüplü", value: "18 / 24 / 30 / 36 tüp" },
+      { label: "Kullanım", value: "Sıcak su" },
+    ],
+    usageAreas: ["Konut sıcak su", "Tesis / otel", "Tarımsal tesis"],
+    documents: catalogDoc,
+    seoTitle: "Tokat Güneş Kolektör ve Vakum Tüplü Sistem | Yalçın Isı",
     seoDescription:
-      "Yalçın Isı güneş enerjisi kolektör sistemleri hakkında bilgi alın.",
+      "Tokat güneş enerjisi sıcak su: 2 kolektörlü ve 18-36 vakum tüplü sistemler. Yalçın Isı teklif.",
   },
   {
     id: "gunes-enerji-depolari",
@@ -292,26 +384,222 @@ export const windProducts: Product[] = [
   },
 ];
 
+/** Katalog: "Kangal boru ve ağırlık tablosu" — [çap, rulo m, toplam ağırlık] */
+const coilWeights6Atu: [string, number, string | null][] = [
+  ["16", 100, "6–7 kg"],
+  ["18", 100, "7–8 kg"],
+  ["20", 100, "11–14 kg"],
+  ["25", 100, "13–17 kg"],
+  ["32", 100, "20–23 kg"],
+  ["40", 100, "30–33 kg"],
+  ["50", 100, "39–42 kg"],
+  ["63", 100, "59–62 kg"],
+  ["75", 100, "79–83 kg"],
+  ["90", 50, null],
+  ["110", 50, null],
+];
+
+const coilWeights10Atu: [string, number, string | null][] = [
+  ["16", 100, "7–9 kg"],
+  ["18", 100, "9–10 kg"],
+  ["20", 100, "14–17 kg"],
+  ["25", 100, "19–23 kg"],
+  ["32", 100, "29–33 kg"],
+  ["40", 100, "39–42 kg"],
+  ["50", 100, "59–62 kg"],
+  ["63", 100, "79–83 kg"],
+  ["75", 100, "99–105 kg"],
+  ["90", 50, "73–78 kg"],
+  ["110", 50, "99–104 kg"],
+];
+
+function coilSpecs(rows: [string, number, string | null][]) {
+  return rows.map(([dia, roll, weight]) => ({
+    label: `Ø${dia} mm · ${roll} m rulo`,
+    value: weight ?? "Teklifte bildirilir",
+  }));
+}
+
 export const coilPipes: Product[] = [
   {
     id: "pe-kangal-boru",
     slug: "pe-kangal-boru",
     name: "PE Kangal Boru",
     category: "kangal-borular",
-    shortDescription: "Farklı çap seçenekleriyle PE kangal boru.",
+    shortDescription:
+      "Ø16–110 mm, 6 ve 10 ATÜ basınç sınıfında PE kangal boru.",
     description:
-      "Tarımsal sulama ve farklı endüstriyel uygulamalarda kullanılan PE kangal borular, çeşitli çap seçenekleriyle üretilmektedir. Çap bazlı teknik ölçü ve ağırlık tablosu için lütfen iletişime geçin.",
-    images: ["/images/products/pe-kangal-boru/01.jpg"],
+      "Tokat OSB'deki tesisimizde günlük 2.000 kg kapasiteyle üretilen PE kangal borular; tarımsal sulama, içme/kullanma suyu hatları ve endüstriyel uygulamalar için Ø16'dan Ø110 mm'ye kadar, 6 ATÜ ve 10 ATÜ basınç sınıflarında sunulur. Ø16–75 mm 100 m, Ø90–110 mm 50 m rulo halinde teslim edilir.",
+    images: ["/images/categories/kangal-borular.jpg"],
     technicalSpecs: [
-      { label: "Çap Seçenekleri", value: TODO },
-      { label: "Et Kalınlığı", value: TODO },
-      { label: "Ağırlık (metre başına)", value: TODO },
-      { label: "Rulo Uzunluğu", value: TODO },
+      { label: "Çap Aralığı", value: "Ø16 – Ø110 mm" },
+      { label: "Basınç Sınıfı", value: "6 ATÜ / 10 ATÜ" },
+      { label: "Rulo Uzunluğu", value: "100 m (Ø16–75) · 50 m (Ø90–110)" },
+      { label: "Üretim Kapasitesi", value: "Günlük 2.000 kg" },
     ],
-    usageAreas: ["Tarımsal sulama", TODO],
-    seoTitle: "PE Kangal Boru | Yalçın Isı",
+    usageAreas: ["Tarımsal sulama", "Su hatları", "Endüstriyel kullanım"],
+    documents: catalogDoc,
+    featured: true,
+    seoTitle: "Tokat PE Kangal Boru | 6 ve 10 ATÜ | Yalçın Isı",
     seoDescription:
-      "Yalçın Isı PE kangal boru çap seçenekleri ve teknik bilgiler.",
+      "Tokat kangal boru: Ø16–110 mm, 6 ve 10 ATÜ PE kangal boru, 100 m / 50 m rulo. Yalçın Isı yerli üretim.",
+  },
+  {
+    id: "pe-kangal-boru-6-atu",
+    slug: "pe-kangal-boru-6-atu",
+    name: "PE Kangal Boru 6 ATÜ",
+    category: "kangal-borular",
+    shortDescription: "6 ATÜ PE kangal boru — çap ve ağırlık tablosu.",
+    description:
+      "6 ATÜ basınç sınıfı PE kangal boru; tarımsal sulama ve düşük/orta basınçlı hatlar için. Aşağıdaki tabloda çap, rulo uzunluğu ve rulo başına toplam ağırlık aralıkları yer alır.",
+    images: ["/images/categories/kangal-borular.jpg"],
+    technicalSpecs: coilSpecs(coilWeights6Atu),
+    usageAreas: ["Tarımsal sulama", "Bahçe hatları"],
+    documents: catalogDoc,
+    seoTitle: "6 ATÜ PE Kangal Boru Ağırlık Tablosu | Yalçın Isı",
+    seoDescription:
+      "6 ATÜ PE kangal boru çap ve ağırlık tablosu: Ø16–110 mm, 100 m / 50 m rulo. Tokat Yalçın Isı.",
+  },
+  {
+    id: "pe-kangal-boru-10-atu",
+    slug: "pe-kangal-boru-10-atu",
+    name: "PE Kangal Boru 10 ATÜ",
+    category: "kangal-borular",
+    shortDescription: "10 ATÜ PE kangal boru — çap ve ağırlık tablosu.",
+    description:
+      "10 ATÜ basınç sınıfı PE kangal boru; daha yüksek basınç gerektiren ana hatlar ve endüstriyel uygulamalar için. Tabloda çap, rulo uzunluğu ve rulo başına toplam ağırlık aralıkları yer alır.",
+    images: ["/images/categories/kangal-borular.jpg"],
+    technicalSpecs: coilSpecs(coilWeights10Atu),
+    usageAreas: ["Ana su hattı", "Tarımsal sulama", "Endüstriyel kullanım"],
+    documents: catalogDoc,
+    seoTitle: "10 ATÜ PE Kangal Boru Ağırlık Tablosu | Yalçın Isı",
+    seoDescription:
+      "10 ATÜ PE kangal boru çap ve ağırlık tablosu: Ø16–110 mm, 100 m / 50 m rulo. Tokat Yalçın Isı.",
+  },
+];
+
+export const irrigationFittings: Product[] = [
+  {
+    id: "kaplin-baglanti-parcalari",
+    slug: "pe-kaplin-baglanti-parcalari",
+    name: "PE Kaplin Bağlantı Parçaları",
+    category: "sulama-baglanti-parcalari",
+    shortDescription:
+      "Manşon, dirsek, te, kör tapa, adaptör, redüksiyon ve küresel vana.",
+    description:
+      "PE borular için kaplin (sıkıştırmalı) bağlantı parçaları: kaplin manşon, dirsek, te, kör tapa, dişi/erkek adaptör, redüksiyon manşon/dirsek/te, metal yüzüklü dişi adaptör ve içten dişli küresel vana. Ø20'den Ø110 mm'ye kadar ölçüler; poşet içi adetler katalogda yer alır.",
+    images: ["/images/products/kaplin-baglanti/01.jpg"],
+    imageFit: "contain",
+    technicalSpecs: [
+      { label: "Çap Aralığı", value: "Ø20 – Ø110 mm" },
+      {
+        label: "Ürün Tipleri",
+        value: "Manşon, dirsek, te, kör tapa, adaptör, redüksiyon",
+      },
+      { label: "Küresel Vana", value: '1/2" – 4" içten dişli' },
+    ],
+    usageAreas: ["PE kangal boru hatları", "Tarımsal sulama", "Su tesisatı"],
+    documents: catalogDoc,
+    seoTitle: "PE Kaplin Bağlantı Parçaları | Tokat | Yalçın Isı",
+    seoDescription:
+      "Tokat PE kaplin: manşon, dirsek, te, kör tapa, adaptör, redüksiyon ve küresel vana. Ø20–110 mm. Yalçın Isı.",
+  },
+  {
+    id: "mandalli-boru-ve-ekleri",
+    slug: "mandalli-boru-ve-ekleri",
+    name: "Mandallı Boru ve Ekleri",
+    category: "sulama-baglanti-parcalari",
+    shortDescription: "63 / 75 / 90 / 110 mm mandallı boru, dirsek, te, istavroz.",
+    description:
+      "Yağmurlama ve yüzey sulama hatları için mandallı borular (63, 75, 90, 110 mm) ve mandallı ekler: dişi/erkek başlık, te, istavroz, dişi/erkek köprü, dirsek, abot, redüksiyon, hat vanası ve motor çıkış parçaları. Hızlı kurulum, sökülüp taşınabilir hatlar.",
+    images: [
+      "/images/products/mandalli-boru/01.jpg",
+      "/images/products/mandalli-boru/02.jpg",
+    ],
+    technicalSpecs: [
+      { label: "Boru Çapları", value: "63 / 75 / 90 / 110 mm" },
+      {
+        label: "Ekler",
+        value: "Başlık, te, istavroz, köprü, dirsek, redüksiyon",
+      },
+    ],
+    usageAreas: ["Yağmurlama sulama", "Tarla sulama", "Motopomp hatları"],
+    documents: catalogDoc,
+    seoTitle: "Mandallı Boru ve Ekleri | Tokat | Yalçın Isı",
+    seoDescription:
+      "Tokat mandallı boru: 63, 75, 90, 110 mm borular ve mandallı ekler. Yalçın Isı sulama ekipmanları.",
+  },
+  {
+    id: "sulama-ekipmanlari",
+    slug: "damlama-sulama-ekipmanlari",
+    name: "Damlama Sulama Ekipmanları",
+    category: "sulama-baglanti-parcalari",
+    shortDescription:
+      "Mini vanalar, damlatıcılar, sprinkler, ek parçalar ve aparatlar.",
+    description:
+      "Damlama ve mini sprink sistemleri için tamamlayıcı ekipmanlar: küresel mini vanalar, yassı boru vanaları, conta ve grommetler, boru delme aparatları, ayarlı/ayarsız damlatıcılar, mini sprinkler ve sisleme uçları, spagetti borular, ek ve dirsek nipelleri, kör tapalar ve boru askı elemanları.",
+    images: ["/images/products/sulama-ekipmanlari/01.jpg"],
+    imageFit: "contain",
+    technicalSpecs: [
+      { label: "Kapsam", value: "Vana, damlatıcı, sprink, ek parçası" },
+      { label: "Ölçüler", value: "Ø16 / Ø17 / Ø20 hatlar" },
+    ],
+    usageAreas: ["Damlama sulama", "Sera", "Bahçe ve bağ"],
+    documents: catalogDoc,
+    seoTitle: "Damlama Sulama Ekipmanları | Tokat | Yalçın Isı",
+    seoDescription:
+      "Tokat damlama sulama ekipmanları: mini vana, damlatıcı, sprinkler ve bağlantı parçaları. Yalçın Isı.",
+  },
+];
+
+export const electricalPanels: Product[] = [
+  {
+    id: "sayacli-elektrik-panolari",
+    slug: "sayacli-elektrik-panolari",
+    name: "Sayaçlı Elektrik Panoları",
+    category: "elektrik-panolari",
+    shortDescription: "2, 3, 4, 9 ve 16 sayaçlı pano seçenekleri.",
+    description:
+      "Konut, site ve iş merkezleri için sayaçlı elektrik panoları: 2, 3, 4, 9 (77,50 + 1 PRO) ve 16 (14 EKO + 2 PRO) sayaçlı tipler. Özel sac karkas, elektrostatik toz boya; güvenli, dayanıklı ve uzun ömürlü. Tokat OSB'de kendi tesisimizde üretilir.",
+    images: [
+      "/images/products/elektrik-panolari/02.jpg",
+      "/images/products/elektrik-panolari/01.jpg",
+    ],
+    imageFit: "contain",
+    technicalSpecs: [
+      { label: "Sayaç Seçenekleri", value: "2 / 3 / 4 / 9 / 16" },
+      { label: "Gövde", value: "Özel sac karkas" },
+      { label: "Yüzey", value: "Elektrostatik toz boya" },
+    ],
+    usageAreas: ["Konut", "Apartman / site", "İş merkezi"],
+    documents: catalogDoc,
+    seoTitle: "Sayaçlı Elektrik Panosu | Tokat | Yalçın Isı",
+    seoDescription:
+      "Tokat sayaçlı elektrik panosu: 2, 3, 4, 9 ve 16 sayaçlı, sac karkas, toz boyalı pano imalatı. Yalçın Isı.",
+  },
+  {
+    id: "santiye-panosu",
+    slug: "santiye-panosu",
+    name: "Şantiye Panosu",
+    category: "elektrik-panolari",
+    shortDescription: "İnşaat sahaları için dayanıklı şantiye elektrik panosu.",
+    description:
+      "İnşaat ve geçici saha elektriği için şantiye panosu; sac karkas gövde, elektrostatik toz boya ve kolay montaj. Yüksek güvenlik ve dış ortam koşullarına dayanıklı yapı.",
+    images: [
+      "/images/products/elektrik-panolari/01.jpg",
+      "/images/products/elektrik-panolari/02.jpg",
+    ],
+    imageFit: "contain",
+    technicalSpecs: [
+      { label: "Gövde", value: "Özel sac karkas" },
+      { label: "Yüzey", value: "Elektrostatik toz boya" },
+      { label: "Kullanım", value: "Şantiye / geçici saha" },
+    ],
+    usageAreas: ["İnşaat sahası", "Geçici elektrik"],
+    documents: catalogDoc,
+    seoTitle: "Şantiye Panosu | Tokat Elektrik Pano İmalatı | Yalçın Isı",
+    seoDescription:
+      "Tokat şantiye panosu: sac karkas, toz boyalı, dayanıklı elektrik panosu imalatı. Yalçın Isı.",
   },
 ];
 
@@ -420,6 +708,8 @@ export const allProducts: Product[] = [
   ...windProducts,
   ...coilPipes,
   ...dripIrrigationPipes,
+  ...irrigationFittings,
+  ...electricalPanels,
 ];
 
 export function getProductBySlug(slug: string) {
@@ -428,6 +718,21 @@ export function getProductBySlug(slug: string) {
 
 export function getProductsByCategory(category: string) {
   return allProducts.filter((p) => p.category === category);
+}
+
+/** Kategoriler arasında sırayla seçer; her kategoriden en az bir ürün görünür */
+export function getProductsAcrossCategories(
+  categorySlugs: readonly string[],
+  limit: number
+) {
+  const lists = categorySlugs.map((slug) => getProductsByCategory(slug));
+  const picked: Product[] = [];
+  for (let i = 0; picked.length < limit; i++) {
+    const round = lists.map((list) => list[i]).filter(Boolean);
+    if (round.length === 0) break;
+    picked.push(...round);
+  }
+  return picked.slice(0, limit);
 }
 
 export function getFeaturedPelletStoves() {

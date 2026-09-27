@@ -13,6 +13,7 @@ import { getCategory } from "@/data/categories";
 import { site } from "@/data/site";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductImage } from "@/components/products/ProductImage";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export function generateStaticParams() {
   return allProducts.map((p) => ({ slug: p.slug }));
@@ -26,7 +27,7 @@ export function generateMetadata({
   const product = getProductBySlug(params.slug);
   if (!product) return {};
   return {
-    title: product.seoTitle,
+    title: { absolute: product.seoTitle },
     description: product.seoDescription,
     alternates: { canonical: `/urunler/${product.slug}` },
     openGraph: {
@@ -49,6 +50,13 @@ export default function ProductDetailPage({
   const related = getProductsByCategory(product.category)
     .filter((p) => p.slug !== product.slug)
     .slice(0, 3);
+  const specs = product.technicalSpecs.filter(
+    (s) => s.value && s.value !== "TODO"
+  );
+  const usageAreas = product.usageAreas?.filter((a) => a && a !== "TODO");
+  const documents = product.documents?.filter(
+    (d) => d.href && d.href !== "#"
+  );
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -77,17 +85,11 @@ export default function ProductDetailPage({
 
   return (
     <div className="bg-paper">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
-      />
+      <JsonLd data={jsonLd} />
+      <JsonLd data={breadcrumbLd} />
 
-      <div className="container-page py-16">
-        <nav className="text-sm text-steel-400">
+      <div className="container-page py-10 sm:py-14 md:py-16">
+        <nav className="text-sm text-steel-400" aria-label="Breadcrumb">
           <Link href="/urunler" className="hover:text-ink">Ürünler</Link>
           {category && (
             <>
@@ -101,9 +103,9 @@ export default function ProductDetailPage({
           <span className="text-ink">{product.name}</span>
         </nav>
 
-        <div className="mt-8 grid gap-12 lg:grid-cols-2">
-          <div>
-            <div className="relative aspect-[3/4] sm:aspect-[4/3] rounded-2xl bg-navy-900/5 overflow-hidden">
+        <div className="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-2 lg:gap-12">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-navy-900/5">
               <ProductImage
                 src={product.images[0]}
                 alt={`${product.name} ürün görseli`}
@@ -122,7 +124,8 @@ export default function ProductDetailPage({
                     <ProductImage
                       src={img}
                       alt={`${product.name} görsel ${i + 2}`}
-                      sizes="120px"
+                      sizes="160px"
+                      fit={product.imageFit}
                     />
                   </div>
                 ))}
@@ -131,7 +134,10 @@ export default function ProductDetailPage({
           </div>
 
           <div>
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-ink">
+            {category && (
+              <p className="eyebrow">{category.name}</p>
+            )}
+            <h1 className="mt-2 font-display text-2xl font-bold text-ink sm:text-3xl md:text-4xl">
               {product.name}
             </h1>
             <p className="mt-4 text-steel-500 leading-relaxed">
@@ -156,49 +162,57 @@ export default function ProductDetailPage({
               </ul>
             )}
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                href={`/iletisim?urun=${encodeURIComponent(product.name)}#teklif`}
+                className="btn-primary w-full sm:w-auto"
+              >
+                Teklif İste
+              </Link>
               <a
                 href={whatsappHref(product.name)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="focus-ring inline-flex items-center rounded-md bg-whatsapp-500 px-6 py-3.5 text-sm font-semibold text-white hover:bg-whatsapp-600 transition-colors"
+                className="focus-ring inline-flex min-h-[44px] w-full items-center justify-center rounded-xl bg-whatsapp-500 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-whatsapp-600 sm:w-auto"
               >
-                WhatsApp'tan Bilgi Al
+                WhatsApp&apos;tan Bilgi Al
               </a>
-              <Link
-                href={`/iletisim?urun=${encodeURIComponent(product.name)}#teklif`}
-                className="focus-ring inline-flex items-center rounded-md bg-ember-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-ember-500 transition-colors"
+              <a
+                href={site.phoneHref}
+                className="btn-secondary w-full sm:w-auto"
               >
-                Teklif İste
-              </Link>
+                {site.phoneDisplay}
+              </a>
             </div>
 
-            <div className="mt-10 border-t border-navy-900/10 pt-8">
-              <h2 className="font-display text-lg font-bold text-ink">
-                Teknik Özellikler
-              </h2>
-              <dl className="mt-4 divide-y divide-navy-900/10">
-                {product.technicalSpecs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="flex justify-between gap-6 py-3 text-sm"
-                  >
-                    <dt className="text-steel-400">{spec.label}</dt>
-                    <dd className="text-right font-medium text-ink">
-                      {spec.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            {specs.length > 0 && (
+              <div className="mt-10 border-t border-navy-900/10 pt-8">
+                <h2 className="font-display text-lg font-bold text-ink">
+                  Teknik Özellikler
+                </h2>
+                <dl className="mt-4 divide-y divide-navy-900/10">
+                  {specs.map((spec) => (
+                    <div
+                      key={spec.label}
+                      className="flex flex-col gap-0.5 py-3 text-sm sm:flex-row sm:justify-between sm:gap-6"
+                    >
+                      <dt className="text-steel-400">{spec.label}</dt>
+                      <dd className="font-medium text-ink sm:text-right">
+                        {spec.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
 
-            {product.usageAreas && (
+            {usageAreas && usageAreas.length > 0 && (
               <div className="mt-8">
                 <h2 className="font-display text-lg font-bold text-ink">
                   Kullanım Alanları
                 </h2>
                 <ul className="mt-3 flex flex-wrap gap-2">
-                  {product.usageAreas.map((area) => (
+                  {usageAreas.map((area) => (
                     <li
                       key={area}
                       className="rounded-full bg-navy-900/5 px-3 py-1 text-sm text-steel-500"
@@ -210,13 +224,13 @@ export default function ProductDetailPage({
               </div>
             )}
 
-            {product.documents && product.documents.length > 0 && (
+            {documents && documents.length > 0 && (
               <div className="mt-8">
                 <h2 className="font-display text-lg font-bold text-ink">
                   Dokümanlar
                 </h2>
                 <ul className="mt-3 space-y-2">
-                  {product.documents.map((doc) => (
+                  {documents.map((doc) => (
                     <li key={doc.label}>
                       <a
                         href={doc.href}
@@ -233,11 +247,11 @@ export default function ProductDetailPage({
         </div>
 
         {related.length > 0 && (
-          <div className="mt-24">
+          <div className="mt-16 sm:mt-20 lg:mt-24">
             <h2 className="font-display text-2xl font-bold text-ink">
               Benzer Ürünler
             </h2>
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-5 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

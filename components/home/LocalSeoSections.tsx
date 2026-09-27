@@ -25,12 +25,12 @@ export function LocalSeoSections() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {localServices.map((service, i) => (
             <Reveal key={service.slug} delay={i * 50}>
               <article
                 id={service.homeAnchor}
-                className="scroll-mt-28 h-full rounded-panel border border-steel-200 bg-mist p-6 md:p-8"
+                className="scroll-mt-24 h-full rounded-panel border border-steel-200 bg-mist p-5 sm:p-6 md:scroll-mt-28 md:p-8"
               >
                 <p className="text-xs font-semibold uppercase tracking-wider text-steel-400">
                   {service.eyebrow}

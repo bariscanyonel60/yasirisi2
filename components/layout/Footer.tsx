@@ -101,8 +101,30 @@ export function Footer() {
                 {site.phoneDisplay}
               </a>
             </li>
-            <li>{site.officeAddress}</li>
-            <li>{site.factoryAddress}</li>
+            <li>
+              Teknik servis:{" "}
+              <a
+                href={site.technicalService[0].href}
+                className="focus-ring hover:text-white transition-colors"
+              >
+                {site.technicalService[0].display}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${site.email}`}
+                className="focus-ring hover:text-white transition-colors"
+              >
+                {site.email}
+              </a>
+            </li>
+            <li>
+              <span className="text-steel-400">Ofis:</span> {site.officeAddress}
+            </li>
+            <li>
+              <span className="text-steel-400">Fabrika:</span>{" "}
+              {site.factoryAddress}
+            </li>
             <li>
               <a
                 href={site.instagram}

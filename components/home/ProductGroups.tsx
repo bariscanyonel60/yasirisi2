@@ -14,16 +14,20 @@ const secondarySlugs = [
   "damlama-sulama-borulari",
   "ruzgar-enerjisi",
   "pelet-yakit",
+  "sulama-baglanti-parcalari",
+  "elektrik-panolari",
 ] as const;
 
 /** Kategori görseli yoksa marketing fallback */
 const imageFallback: Record<string, string> = {
   "pelet-sobalari": "/images/categories/pelet-sobalari.jpg",
   "gunes-enerji-sistemleri": "/images/categories/gunes-enerjisi.jpg",
-  "kangal-borular": "/images/marketing/header-banner.jpg",
+  "kangal-borular": "/images/categories/kangal-borular.jpg",
   "damlama-sulama-borulari": "/images/categories/damlama-sulama.jpg",
   "ruzgar-enerjisi": "/images/categories/ruzgar-enerjisi.jpg",
   "pelet-yakit": "/images/categories/pelet-yakit.jpg",
+  "sulama-baglanti-parcalari": "/images/categories/sulama-baglanti.jpg",
+  "elektrik-panolari": "/images/categories/elektrik-panolari.jpg",
 };
 
 function CategoryCard({
@@ -44,14 +48,18 @@ function CategoryCard({
     <Link
       href={`/urunler/kategori/${cat.slug}`}
       className={`focus-ring group relative flex flex-col justify-end overflow-hidden rounded-panel bg-navy-900 ${
-        large ? "min-h-[320px] md:min-h-[380px]" : "min-h-[240px] md:min-h-[280px]"
+        large ? "min-h-[280px] sm:min-h-[320px] md:min-h-[360px]" : "min-h-[220px] sm:min-h-[240px] md:min-h-[280px]"
       }`}
     >
       <Image
         src={imageSrc}
         alt={`${cat.name} — Yalçın Isı`}
         fill
-        sizes={large ? "(max-width:768px) 100vw, 40vw" : "(max-width:768px) 100vw, 33vw"}
+        sizes={
+          large
+            ? "(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+            : "(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+        }
         className="object-cover opacity-55 transition-transform duration-500 group-hover:scale-[1.03]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-900/50 to-transparent" />
@@ -98,9 +106,13 @@ export function ProductGroups() {
           ))}
         </div>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 md:mt-5 md:grid-cols-3 md:gap-5">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 md:mt-5 md:gap-5 lg:grid-cols-6">
           {secondarySlugs.map((slug, i) => (
-            <Reveal key={slug} delay={i * 50}>
+            <Reveal
+              key={slug}
+              delay={i * 50}
+              className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}
+            >
               <CategoryCard slug={slug} />
             </Reveal>
           ))}

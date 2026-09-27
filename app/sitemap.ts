@@ -108,8 +108,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogRoutes: MetadataRoute.Sitemap = getAllBlogSlugs().map((slug) => ({
     url: `${site.url}/blog/${slug}`,
     lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.55,
+    changeFrequency: "weekly",
+    priority: 0.65,
   }));
 
   return [

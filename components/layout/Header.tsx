@@ -5,13 +5,12 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { navItems, type NavItem } from "@/data/site";
-import { categories } from "@/data/categories";
 import { BrandLogo } from "@/components/layout/BrandLogo";
 import { MediaCredit } from "@/components/layout/MediaCredit";
 
 function linkClass(solid: boolean, active?: boolean) {
   const base =
-    "focus-ring group relative rounded-lg px-3 py-2 font-display text-[13px] font-bold tracking-[0.02em] transition-colors md:text-sm";
+    "focus-ring group relative inline-flex items-center rounded-lg px-2.5 py-2 font-display text-[13px] font-bold tracking-[0.02em] transition-colors 2xl:px-3 2xl:text-sm";
   if (solid) {
     return `${base} ${
       active
@@ -24,6 +23,10 @@ function linkClass(solid: boolean, active?: boolean) {
       ? "bg-white/15 text-white"
       : "text-white hover:bg-white/10 hover:text-white"
   }`;
+}
+
+function matchesPath(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export function Header() {
@@ -51,14 +54,14 @@ export function Header() {
 
   const isActive = (item: NavItem) => {
     if (item.href === "/") return pathname === "/";
-    if (item.mega === "products") return pathname.startsWith("/urunler");
+    if (item.match?.some((prefix) => pathname.startsWith(prefix))) return true;
     if (item.children) {
-      return item.children.some(
-        (c) => pathname === c.href || pathname.startsWith(`${c.href}/`)
-      );
+      return item.children.some((c) => matchesPath(pathname, c.href));
     }
-    return pathname === item.href || pathname.startsWith(`${item.href}/`);
+    return matchesPath(pathname, item.href);
   };
+
+  const desktopItems = navItems.filter((item) => item.href !== "/");
 
   return (
     <header
@@ -75,113 +78,103 @@ export function Header() {
           priority
         />
 
-        <nav className="hidden items-center gap-0.5 xl:flex">
-          {navItems.map((item) => {
-            if (item.mega === "products") {
+        <nav
+          className="hidden items-center gap-0.5 xl:flex"
+          aria-label="Ana menü"
+        >
+          {desktopItems.map((item) => {
+            if (!item.children?.length) {
               return (
-                <div
+                <Link
                   key={item.href}
-                  className="relative"
-                  onMouseEnter={() => setOpenDesktop("products")}
-                  onMouseLeave={() => setOpenDesktop(null)}
+                  href={item.href}
+                  className={linkClass(solid, isActive(item))}
                 >
-                  <Link
-                    href={item.href}
-                    className={linkClass(solid, isActive(item))}
-                  >
-                    {item.label}
-                  </Link>
-                  <AnimatePresence>
-                    {openDesktop === "products" && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 8 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute left-1/2 top-full w-[640px] -translate-x-1/2 pt-3"
-                      >
-                        <div className="grid grid-cols-2 gap-1 rounded-2xl border border-steel-200 bg-paper p-3 shadow-lift">
-                          {categories.map((cat) => (
-                            <Link
-                              key={cat.slug}
-                              href={`/urunler/kategori/${cat.slug}`}
-                              className="focus-ring group rounded-xl p-4 hover:bg-mist transition-colors"
-                            >
-                              <div className="font-display text-sm font-bold text-ink group-hover:text-ember-600">
-                                {cat.name}
-                              </div>
-                              <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-steel-500">
-                                {cat.description}
-                              </p>
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                  {item.label}
+                </Link>
               );
             }
 
-            if (item.children?.length) {
-              return (
-                <div
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={() => setOpenDesktop(item.label)}
-                  onMouseLeave={() => setOpenDesktop(null)}
-                >
-                  <Link
-                    href={item.href}
-                    className={linkClass(solid, isActive(item))}
-                  >
-                    {item.label}
-                    <span className="ml-1 inline-block text-[10px] opacity-60">
-                      ▾
-                    </span>
-                  </Link>
-                  <AnimatePresence>
-                    {openDesktop === item.label && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 8 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute left-0 top-full w-72 pt-3"
-                      >
-                        <div className="rounded-2xl border border-steel-200 bg-paper p-2 shadow-lift">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.href + child.label}
-                              href={child.href}
-                              className="focus-ring block rounded-xl px-4 py-3 hover:bg-mist transition-colors"
-                            >
-                              <div className="font-display text-sm font-bold text-ink">
-                                {child.label}
-                              </div>
-                              {child.description && (
-                                <p className="mt-0.5 text-xs text-steel-500">
-                                  {child.description}
-                                </p>
-                              )}
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            }
-
+            const open = openDesktop === item.label;
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={linkClass(solid, isActive(item))}
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => setOpenDesktop(item.label)}
+                onMouseLeave={() => setOpenDesktop(null)}
+                onFocus={() => setOpenDesktop(item.label)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    setOpenDesktop(null);
+                  }
+                }}
               >
-                {item.label}
-              </Link>
+                <Link
+                  href={item.href}
+                  aria-haspopup="true"
+                  aria-expanded={open}
+                  className={linkClass(solid, isActive(item))}
+                >
+                  {item.label}
+                  <svg
+                    className={`ml-1 h-3 w-3 opacity-60 transition-transform ${
+                      open ? "rotate-180" : ""
+                    }`}
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden
+                  >
+                    <path
+                      d="M3 4.5 6 7.5 9 4.5"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+                <AnimatePresence>
+                  {open && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full w-80 pt-3"
+                    >
+                      <div className="rounded-2xl border border-steel-200 bg-paper p-2 shadow-lift">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href + child.label}
+                            href={child.href}
+                            className={`focus-ring block rounded-xl px-4 py-3 transition-colors hover:bg-mist ${
+                              matchesPath(pathname, child.href) ? "bg-mist" : ""
+                            }`}
+                          >
+                            <div className="font-display text-sm font-bold text-ink">
+                              {child.label}
+                            </div>
+                            {child.description && (
+                              <p className="mt-0.5 text-xs text-steel-500">
+                                {child.description}
+                              </p>
+                            )}
+                          </Link>
+                        ))}
+                        {item.footerLink && (
+                          <Link
+                            href={item.footerLink.href}
+                            className="focus-ring mt-1 flex items-center justify-between rounded-xl border-t border-steel-100 px-4 py-3 text-xs font-semibold text-ember-600 hover:bg-mist"
+                          >
+                            {item.footerLink.label}
+                            <span aria-hidden>→</span>
+                          </Link>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </nav>
@@ -193,7 +186,8 @@ export function Header() {
         </div>
 
         <button
-          className={`focus-ring rounded-lg p-2 xl:hidden ${
+          type="button"
+          className={`focus-ring inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 xl:hidden ${
             solid ? "text-ink" : "text-white"
           }`}
           aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
@@ -226,73 +220,32 @@ export function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="max-h-[80vh] overflow-y-auto border-t border-steel-200 bg-paper xl:hidden"
+            className="max-h-[min(80vh,720px)] overflow-y-auto border-t border-steel-200 bg-paper xl:hidden"
           >
             <div className="container-page flex flex-col py-3">
               {navItems.map((item) => {
-                if (item.mega === "products") {
-                  const open = openMobile === "products";
-                  return (
-                    <div
-                      key={item.href}
-                      className="border-b border-steel-100"
-                    >
-                      <div className="flex items-center">
-                        <Link
-                          href={item.href}
-                          onClick={() => setMenuOpen(false)}
-                          className="focus-ring flex-1 py-3.5 font-display text-base font-bold text-ink"
-                        >
-                          {item.label}
-                        </Link>
-                        <button
-                          type="button"
-                          aria-label="Ürün alt menü"
-                          className="focus-ring px-3 py-3.5 text-steel-500"
-                          onClick={() =>
-                            setOpenMobile(open ? null : "products")
-                          }
-                        >
-                          {open ? "−" : "+"}
-                        </button>
-                      </div>
-                      {open && (
-                        <div className="pb-3 pl-3">
-                          {categories.map((cat) => (
-                            <Link
-                              key={cat.slug}
-                              href={`/urunler/kategori/${cat.slug}`}
-                              onClick={() => setMenuOpen(false)}
-                              className="focus-ring block py-2.5 text-sm text-steel-600"
-                            >
-                              {cat.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-
                 if (item.children?.length) {
                   const open = openMobile === item.label;
                   return (
                     <div
-                      key={item.href}
+                      key={item.label}
                       className="border-b border-steel-100"
                     >
                       <div className="flex items-center">
                         <Link
                           href={item.href}
                           onClick={() => setMenuOpen(false)}
-                          className="focus-ring flex-1 py-3.5 font-display text-base font-bold text-ink"
+                          className={`focus-ring flex-1 py-3.5 font-display text-base font-bold ${
+                            isActive(item) ? "text-ember-600" : "text-ink"
+                          }`}
                         >
                           {item.label}
                         </Link>
                         <button
                           type="button"
                           aria-label={`${item.label} alt menü`}
-                          className="focus-ring px-3 py-3.5 text-steel-500"
+                          aria-expanded={open}
+                          className="focus-ring inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-lg text-steel-500"
                           onClick={() =>
                             setOpenMobile(open ? null : item.label)
                           }
@@ -307,11 +260,27 @@ export function Header() {
                               key={child.href + child.label}
                               href={child.href}
                               onClick={() => setMenuOpen(false)}
-                              className="focus-ring block py-2.5 text-sm text-steel-600"
+                              className="focus-ring block py-2.5"
                             >
-                              {child.label}
+                              <span className="block text-sm font-semibold text-ink">
+                                {child.label}
+                              </span>
+                              {child.description && (
+                                <span className="block text-xs text-steel-500">
+                                  {child.description}
+                                </span>
+                              )}
                             </Link>
                           ))}
+                          {item.footerLink && (
+                            <Link
+                              href={item.footerLink.href}
+                              onClick={() => setMenuOpen(false)}
+                              className="focus-ring block py-2.5 text-sm font-semibold text-ember-600"
+                            >
+                              {item.footerLink.label} →
+                            </Link>
+                          )}
                         </div>
                       )}
                     </div>
@@ -323,7 +292,9 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="focus-ring border-b border-steel-100 py-3.5 font-display text-base font-bold text-ink last:border-0"
+                    className={`focus-ring border-b border-steel-100 py-3.5 font-display text-base font-bold last:border-0 ${
+                      isActive(item) ? "text-ember-600" : "text-ink"
+                    }`}
                   >
                     {item.label}
                   </Link>
@@ -336,7 +307,7 @@ export function Header() {
               >
                 Teklif Al
               </Link>
-              <div className="mt-5 border-t border-steel-100 pt-4 pb-1 flex justify-center">
+              <div className="mt-5 flex justify-center border-t border-steel-100 pb-1 pt-4">
                 <MediaCredit tone="light" />
               </div>
             </div>

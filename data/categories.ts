@@ -1,4 +1,4 @@
-import { ProductCategory } from "@/types/product";
+import type { ProductCategory, ProductCategorySlug } from "@/types/product";
 
 export const categories: ProductCategory[] = [
   {
@@ -49,7 +49,80 @@ export const categories: ProductCategory[] = [
       "Tokat damlama sulama boruları: farklı çap, damlatıcı aralığı ve rulo uzunluklarında damlama ve kör sulama boruları.",
     image: "/images/categories/damlama-sulama.jpg",
   },
+  {
+    slug: "sulama-baglanti-parcalari",
+    name: "Sulama Ekipmanları ve Bağlantı Parçaları",
+    shortLabel: "Bağlantı Parçaları",
+    description:
+      "PE kaplin bağlantı parçaları, mandallı borular ve ekleri, mini vanalar, damlatıcı ve sprinkler ekipmanları.",
+    image: "/images/categories/sulama-baglanti.jpg",
+  },
+  {
+    slug: "elektrik-panolari",
+    name: "Elektrik Panoları",
+    shortLabel: "Elektrik Panoları",
+    description:
+      "Özel sac karkaslı, elektrostatik toz boyalı şantiye ve sayaçlı elektrik panoları — Tokat OSB'de üretim.",
+    image: "/images/categories/elektrik-panolari.jpg",
+  },
 ];
+
+export type ProductGroup = {
+  id: string;
+  name: string;
+  title: string;
+  description: string;
+  categories: ProductCategorySlug[];
+  /** Tokat yerel landing sayfası */
+  landing?: string;
+};
+
+/** Navbar ile aynı dört ana ürün grubu */
+export const productGroups: ProductGroup[] = [
+  {
+    id: "pelet",
+    name: "Pelet",
+    title: "Pelet Sobası ve Pelet Yakıt",
+    description:
+      "Kendi patentimizle ürettiğimiz YPS pelet sobaları ve doğal çam talaşından çam pelet.",
+    categories: ["pelet-sobalari", "pelet-yakit"],
+    landing: "/tokat-pelet-soba",
+  },
+  {
+    id: "enerji",
+    name: "Enerji Sistemleri",
+    title: "Güneş ve Rüzgâr Enerji Sistemleri",
+    description:
+      "3 / 6,2 / 11 kW güneş paketleri, kolektör ve vakum tüplü sistemler, rüzgâr enerjisi.",
+    categories: ["gunes-enerji-sistemleri", "ruzgar-enerjisi"],
+    landing: "/tokat-gunes-enerjisi",
+  },
+  {
+    id: "kangal",
+    name: "Kangal Borular",
+    title: "Kangal Boru ve Sulama Sistemleri",
+    description:
+      "6 ve 10 ATÜ PE kangal boru, damlama sulama boruları, kaplin ve sulama ekipmanları.",
+    categories: [
+      "kangal-borular",
+      "damlama-sulama-borulari",
+      "sulama-baglanti-parcalari",
+    ],
+    landing: "/tokat-kangal-boru",
+  },
+  {
+    id: "elektrik",
+    name: "Elektrik Panoları",
+    title: "Elektrik Panoları",
+    description:
+      "Sac karkaslı, elektrostatik toz boyalı sayaçlı ve şantiye panoları.",
+    categories: ["elektrik-panolari"],
+  },
+];
+
+export function getProductGroupByLanding(path: string) {
+  return productGroups.find((g) => g.landing === path);
+}
 
 /** Ana sayfa / menüde öne çıkan enerji ürün grupları */
 export const energyCategories = categories.filter((c) =>

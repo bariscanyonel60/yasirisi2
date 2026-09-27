@@ -40,44 +40,51 @@ export function Hero() {
 
   return (
     <section className="relative -mt-16 bg-navy-900 md:-mt-[68px]">
-      <div className="relative min-h-[650px] md:min-h-[720px] lg:min-h-[780px]">
+      <div className="relative min-h-[min(92svh,640px)] md:min-h-[680px] lg:min-h-[760px]">
         <HeaderCarousel overlay />
 
-        <div className="relative z-[1] container-page flex min-h-[650px] flex-col justify-center py-20 md:min-h-[720px] md:py-24 lg:min-h-[780px]">
-          <div className="max-w-[600px]">
-            <p className="hero-rise hero-rise-d0 text-xs font-semibold uppercase tracking-[0.16em] text-ember-400">
-              {company.incorporatedYear}&apos;den Beri Üretimin Gücü
+        <div className="relative z-[1] container-page flex min-h-[min(92svh,640px)] flex-col justify-center py-16 md:min-h-[680px] md:py-20 lg:min-h-[760px] lg:py-24">
+          <div className="max-w-[640px]">
+            <p className="hero-rise hero-rise-d0 text-[11px] font-semibold uppercase tracking-[0.16em] text-ember-400 sm:text-xs">
+              Yalçın Isı · Tokat · {company.incorporatedYear}&apos;den beri
             </p>
 
-            <h1 className="hero-rise hero-rise-d1 mt-4 font-display text-display-xl text-white">
-              Isıdan Enerjiye,
-              <br />
-              Üretimden Geleceğe.
+            <h1 className="hero-rise hero-rise-d1 mt-3 font-display text-[1.85rem] font-bold leading-[1.15] tracking-tight text-white sm:text-display-xl md:mt-4">
+              Tokat Pelet Sobası,
+              <br className="sm:hidden" />{" "}
+              Güneş Enerjisi ve Kangal Boru
             </h1>
 
-            <p className="hero-rise hero-rise-d2 mt-5 max-w-lg text-base leading-relaxed text-steel-200 md:text-lg">
+            <p className="hero-rise hero-rise-d2 mt-3 font-display text-lg font-semibold text-white/90 sm:mt-4 sm:text-xl md:text-2xl">
+              Isıdan enerjiye, üretimden geleceğe.
+            </p>
+
+            <p className="hero-rise hero-rise-d2 mt-4 max-w-lg text-[15px] leading-relaxed text-steel-200 sm:text-base md:text-lg">
               Pelet sobası ve pelet yakıt, güneş paneli elektrik üretimi, rüzgâr
               enerjisi ile PE kangal boru — Tokat OSB&apos;de yerli üretim
               altyapısı.
             </p>
 
-            <div className="hero-rise hero-rise-d3 mt-8 flex flex-wrap gap-3">
-              <Link href="/urunler" className="btn-primary">
+            <div className="hero-rise hero-rise-d3 mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+              <Link href="/urunler" className="btn-primary w-full sm:w-auto">
                 Ürünleri Keşfet
               </Link>
-              <Link href="/iletisim#teklif" className="btn-ghost-light">
+              <Link
+                href="/iletisim#teklif"
+                className="btn-ghost-light w-full sm:w-auto"
+              >
                 Teklif Al
               </Link>
             </div>
 
-            <ul className="hero-rise hero-rise-d4 mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/15 pt-6">
+            <ul className="hero-rise hero-rise-d4 mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/15 pt-5 sm:mt-10 sm:gap-x-6 sm:pt-6">
               {trustInline.map((item) => (
                 <li
                   key={item.label}
-                  className="text-sm font-semibold text-white/85"
+                  className="text-xs font-semibold text-white/85 sm:text-sm"
                 >
                   <span className="mr-2 text-ember-400" aria-hidden>
-                    ●
+                    ·
                   </span>
                   {item.label}
                 </li>
@@ -87,17 +94,17 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-[2] container-page -mt-10 pb-2 md:-mt-14">
-        <div className="grid gap-px overflow-hidden rounded-panel border border-steel-200/80 bg-steel-200/60 shadow-lift sm:grid-cols-2 lg:grid-cols-4">
+      <div className="relative z-[2] container-page -mt-8 pb-2 sm:-mt-10 md:-mt-12">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-steel-200/80 bg-steel-200/60 shadow-lift lg:grid-cols-4">
           {floatingTrust.map((item, i) => (
             <div
               key={item.title}
-              className={`hero-rise hero-rise-d${5 + i} bg-paper px-5 py-5 md:px-6 md:py-6`}
+              className={`hero-rise hero-rise-d${5 + i} bg-paper px-3.5 py-4 sm:px-5 sm:py-5 md:px-6 md:py-6`}
             >
-              <div className="font-display text-base font-bold text-ink md:text-lg">
+              <div className="font-display text-sm font-bold text-ink sm:text-base md:text-lg">
                 {item.title}
               </div>
-              <p className="mt-1 text-sm text-steel-500">{item.text}</p>
+              <p className="mt-1 text-xs text-steel-500 sm:text-sm">{item.text}</p>
             </div>
           ))}
         </div>

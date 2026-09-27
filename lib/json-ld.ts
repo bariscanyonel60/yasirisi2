@@ -11,6 +11,7 @@ export function buildSiteJsonLd() {
         name: site.name,
         url: site.url,
         logo: `${site.url}/images/logo.png`,
+        email: site.email,
         sameAs: [site.instagram],
         contactPoint: {
           "@type": "ContactPoint",
@@ -26,6 +27,7 @@ export function buildSiteJsonLd() {
         name: site.name,
         image: `${site.url}/images/logo.png`,
         telephone: "+90-544-261-92-05",
+        email: site.email,
         priceRange: "$$",
         address: {
           "@type": "PostalAddress",
@@ -95,5 +97,42 @@ export function buildServiceJsonLd(service: (typeof localServices)[number]) {
       name: "Tokat",
     },
     url: `${site.url}${service.path}`,
+  };
+}
+
+export function buildBlogArticleJsonLd(post: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  cover: string;
+  seoDescription: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.seoDescription,
+    datePublished: post.date,
+    dateModified: post.date,
+    image: [`${site.url}${post.cover}`],
+    author: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${site.url}/images/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${site.url}/blog/${post.slug}`,
+    },
+    inLanguage: "tr-TR",
   };
 }

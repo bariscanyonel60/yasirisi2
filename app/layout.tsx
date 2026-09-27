@@ -4,9 +4,11 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { CookieBanner } from "@/components/ui/CookieBanner";
 import { site } from "@/data/site";
 import { allKeywords, homeSeo } from "@/data/seo";
 import { buildSiteJsonLd } from "@/lib/json-ld";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const body = Source_Sans_3({
   subsets: ["latin", "latin-ext"],
@@ -66,7 +68,6 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/images/apple-touch-icon.png", sizes: "180x180" }],
   },
-  alternates: { canonical: "/" },
   category: "business",
 };
 
@@ -80,14 +81,12 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${body.variable} ${display.variable}`}>
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={jsonLd} />
         <Header />
         <main>{children}</main>
         <Footer />
         <WhatsAppButton />
+        <CookieBanner />
       </body>
     </html>
   );

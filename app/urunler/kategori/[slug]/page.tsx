@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, getCategory } from "@/data/categories";
 import { getProductsByCategory } from "@/data/products";
@@ -36,6 +37,25 @@ const categorySeo: Record<
     title: "Tokat Damlama Sulama Boruları",
     keywords: ["tokat damlama sulama", "damlama sulama borusu tokat"],
   },
+  "sulama-baglanti-parcalari": {
+    title: "Tokat Sulama Ekipmanları | Kaplin, Mandallı Boru, Vana",
+    keywords: [
+      "tokat kaplin",
+      "pe boru bağlantı parçaları",
+      "mandallı boru tokat",
+      "mini vana",
+      "sulama ekipmanları tokat",
+    ],
+  },
+  "elektrik-panolari": {
+    title: "Tokat Elektrik Panosu | Şantiye ve Sayaçlı Pano",
+    keywords: [
+      "tokat elektrik panosu",
+      "şantiye panosu",
+      "sayaçlı pano",
+      "sac pano imalatı tokat",
+    ],
+  },
 };
 
 export function generateMetadata({
@@ -72,21 +92,24 @@ export default function CategoryPage({
 
   return (
     <div className="bg-paper">
-      <div className="container-page py-20">
-        <nav className="text-sm text-steel-400">
-          <span>Ürünler</span> <span className="mx-1">/</span>{" "}
+      <div className="container-page py-10 sm:py-14 md:py-20">
+        <nav className="text-sm text-steel-400" aria-label="Breadcrumb">
+          <Link href="/urunler" className="focus-ring hover:text-ink">
+            Ürünler
+          </Link>
+          <span className="mx-1">/</span>
           <span className="text-ink">{category.name}</span>
         </nav>
 
-        <h1 className="mt-4 font-display text-4xl font-bold text-ink">
+        <h1 className="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">
           {categorySeo[category.slug]?.title?.split("|")[0]?.trim() ??
             category.name}
         </h1>
-        <p className="mt-3 max-w-xl text-steel-400 text-lg">
+        <p className="mt-3 max-w-2xl text-base text-steel-500 sm:text-lg">
           {category.description}
         </p>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

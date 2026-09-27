@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Belgelerimiz",
   description:
-    "Yalçın Isı üretim süreçlerine ve kalite standartlarına ilişkin belge ve sertifikalar.",
+    "Yalçın Isı belge ve sertifikaları: TSE/TSEK, temiz enerji, çevre izni, Leonardo da Vinci eğitim ve verimlilik belgeleri.",
   alternates: { canonical: "/belgelerimiz" },
 };
 

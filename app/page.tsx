@@ -10,11 +10,13 @@ import { CertificatesStrip } from "@/components/home/CertificatesStrip";
 import { StatsSection } from "@/components/home/StatsSection";
 import { WhyUs } from "@/components/home/WhyUs";
 import { HomeFaq } from "@/components/home/HomeFaq";
+import { HomeBlogTeaser } from "@/components/home/HomeBlogTeaser";
 import { LocalSeoSections } from "@/components/home/LocalSeoSections";
 import { ContactCTA } from "@/components/home/ContactCTA";
 import { WindEnergySection } from "@/components/home/WindEnergySection";
 import { homeSeo } from "@/data/seo";
 import { buildHomeFaqJsonLd } from "@/lib/json-ld";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: { absolute: homeSeo.title },
@@ -42,11 +44,9 @@ export default function HomePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
-      />
+      <JsonLd data={faqLd} />
       <Hero />
+      <LocalSeoSections />
       <ProductGroups />
       <ProductionPower />
       <PelletShowcase />
@@ -57,8 +57,8 @@ export default function HomePage() {
       <StatsSection />
       <WhyUs />
       <WindEnergySection />
+      <HomeBlogTeaser />
       <HomeFaq />
-      <LocalSeoSections />
       <ContactCTA />
     </>
   );
